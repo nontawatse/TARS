@@ -49,13 +49,3 @@ print(f'Accuracy: {accuracy}')
 
 # บันทึกโมเดล
 model.save('RNN_model.keras')
-
-# โหลดโมเดล
-new_data = ["คนเยอะมาก"]  
-
-sequences = tokenizer.texts_to_sequences(new_data)
-new_data_transformed = pad_sequences(sequences, maxlen=max_len)
-
-predicted_result = model.predict(new_data_transformed)
-
-print("Predicted probabilities:", predicted_result)
