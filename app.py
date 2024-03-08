@@ -88,7 +88,6 @@ tokenizer.fit_on_texts(X)
 sequences = tokenizer.texts_to_sequences(X)
 X = pad_sequences(sequences, maxlen=max_len)
 
-# path.mkdir(exist_ok=True, parents=True)
 
 loaded_model = keras.models.load_model('RNN_model.h5')
 
