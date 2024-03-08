@@ -48,4 +48,4 @@ accuracy = model.evaluate(X_test, y_test)[1]
 print(f'Accuracy: {accuracy}')
 
 # บันทึกโมเดล
-model.save('RNN_model.keras')
+model.save('RNN_model.h5')

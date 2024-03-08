@@ -12,30 +12,17 @@ from tensorflow.keras.layers import Embedding, SimpleRNN, Dense
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import tensorflow as tf
+# import pathlib
+
+# path = "\\\\localhost\\C:"
+# path = pathlib.Path(path)
+# path = path/'Users\User\Documents\Bitbucket\My_project'
 
 app = Flask(__name__)
 
 target_width, target_height = 480, 480
 model = keras.models.load_model('model.h5')
 
-data = pd.read_csv('dataset.csv')
-
-X = data['key'] 
-y = data['value'] 
-
-le = LabelEncoder()
-y = le.fit_transform(y)
-
-max_words = 5000
-max_len = 50
-
-
-tokenizer = Tokenizer(num_words=max_words, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', lower=True)
-tokenizer.fit_on_texts(X)
-sequences = tokenizer.texts_to_sequences(X)
-X = pad_sequences(sequences, maxlen=max_len)
-
-loaded_model = tf.keras.models.load_model('RNN_model.keras')
 
 @app.route('/')
 def index():
@@ -83,6 +70,28 @@ def predict():
     print(predictions)
     print(predicted_label)
     return jsonify({'prediction': name})
+
+data = pd.read_csv('dataset.csv')
+
+X = data['key'] 
+y = data['value'] 
+
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+max_words = 5000
+max_len = 50
+
+
+tokenizer = Tokenizer(num_words=max_words, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', lower=True)
+tokenizer.fit_on_texts(X)
+sequences = tokenizer.texts_to_sequences(X)
+X = pad_sequences(sequences, maxlen=max_len)
+
+# path.mkdir(exist_ok=True, parents=True)
+
+loaded_model = keras.models.load_model('RNN_model.h5')
+# loaded_model = tf.keras.models.load_model(path/'RNN_model.keras')
 
 @app.route("/Sentiment", methods=["GET", "POST"])
 def sentiment():
