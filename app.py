@@ -91,7 +91,6 @@ X = pad_sequences(sequences, maxlen=max_len)
 # path.mkdir(exist_ok=True, parents=True)
 
 loaded_model = keras.models.load_model('RNN_model.h5')
-# loaded_model = tf.keras.models.load_model(path/'RNN_model.keras')
 
 @app.route("/Sentiment", methods=["GET", "POST"])
 def sentiment():
